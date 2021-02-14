@@ -11,11 +11,18 @@ END_COMBINATIONS = [
 
 current = set()
 
-def execute():
-    print('asd')
+def increase_count():
+    global count
+    count += 1
 
-def end_program():
-    listener.stop()
+def get_count():
+    global count
+    return count
+
+def execute():
+    increase_count()
+    k = get_count()
+    print('Pressed %d times' % k)
 
 def on_press(key):
     if any([key in COMBO for COMBO in COMBINATIONS]):
@@ -25,11 +32,13 @@ def on_press(key):
     elif any([key in COMBO for COMBO in END_COMBINATIONS]):
         current.add(key)
         if any([all(k in current for k in COMBO) for COMBO in END_COMBINATIONS]):
-            end_program()
+            listener.stop()
 
 def on_release(key):
     if any([key in COMBO for COMBO in COMBINATIONS]):
         current.remove(key)
+
+count = 0
 
 with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
