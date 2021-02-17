@@ -4,25 +4,39 @@ import os  # Отсюда нам понадобятся методы для от
 from PyQt5 import QtWidgets
 
 import main_window_design as design # Это наш конвертированный файл дизайна
+import file_frame as frame_design
+
+frame_count = 0
 
 class AudioRecordApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
+
     def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле design.py
         super().__init__()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
-        # self.btnBrowse.clicked.connect(self.browse_folder)  # Выполнить функцию browse_folder
-                                                            # при нажатии кнопки
+        self.setupUi(self)
+        self.UpdateButton.clicked.connect(self.browse_folder)
+        
 
-    # def browse_folder(self):
-    #     self.listWidget.clear()  # На случай, если в списке уже есть элементы
-    #     directory = QtWidgets.QFileDialog.getExistingDirectory(self, "Выберите папку")
-    #     # открыть диалог выбора директории и установить значение переменной
-    #     # равной пути к выбранной директории
+    def browse_folder(self):
+        global frame_count
+        self.frame = QtWidgets.QFrame(self.scrollAreaWidgetContents_2)
+        frame_count += 1
+        self.frame.setObjectName('frame%d' % frame_count)
+        self.verticalLayout_5.addWidget(self.frame)
+        
+        # directory = QtWidgets.QFileDialog.getExistingDirectory(self, 'choose folder')
 
-    #     if directory:  # не продолжать выполнение, если пользователь не выбрал директорию
-    #         for file_name in os.listdir(directory):  # для каждого файла в директории
-    #             self.listWidget.addItem(file_name)   # добавить файл в listWidget
+        # if directory:
+        #     for file_name in os.listdir(directory):
+        #         if file_name[-3:] == 'mkv':
+        #             print(file_name)
+        pass
+
+class FileFrame(QtWidgets.QFrame, frame_design.Ui_Frame):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  
+
+        print('added')
 
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
