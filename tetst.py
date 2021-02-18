@@ -3,3 +3,4 @@ for i in range(1, 10):
     print(i)
     ddrug -= i
 # asd
+#zalupa konya i
