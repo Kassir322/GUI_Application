@@ -48,11 +48,12 @@ def update_frame():
         for file_name in os.listdir(directory):
             if file_name[-3:] == 'm4a':
                 # print(file_name)
-                window.frame = QtWidgets.QFrame(window.scrollAreaWidgetContents_2)
+                # window.frame = QtWidgets.QFrame(window.scrollAreaWidgetContents_2)
                 window.frame = FileFrame()
                 window.frame.set_caption(file_name)
                 # frame_count += 1
                 # window.frame.setObjectName('frame%d' % frame_count)
+                # ТУТ ДОБАВЛЯТЬ В МАССИВ window.frame
                 window.verticalLayout_5.addWidget(window.frame)
 
 def main():
